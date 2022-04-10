@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgres/data
+    env_file:
+      - ./.env/.postgres
+
+  mysite:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env/.django
+      - ./.env/.postgres
+    depends_on:
+      - db
+
+volumes:
+  data:

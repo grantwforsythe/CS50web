@@ -1,0 +1,18 @@
+{% extends "polls/layout.html" %}
+
+{% block title %} Polls {% endblock title %}
+
+{% block content %}
+  <h1>Most Recent Polls</h1>
+  {% if questions %}
+    <ul id="questions">
+      {% for question in questions %}
+        <!-- looks for name='detail' in polls/urls.py -->
+        <!-- benefit to this approach is it avoids hard coding -->
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No polls are available.</p>
+  {% endif %}
+{% endblock content %}
