@@ -10,6 +10,9 @@ from .models import Choice, Question
 # create your views here.
 # note: the redundancy can be removed switching to the generic-view model
 def index(request):
+    """
+    Return the last five published questions (not including those set to be published in the future).
+    """
     questions = Question.objects.filter(
         pub_date__lte=timezone.now()
     ).order_by('-pub_date')[:5]
